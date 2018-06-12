@@ -1,6 +1,7 @@
 # CarFinder
 
 Introduction
+
 This text introduces the implementation of a system which supports
 people at finding the car that suits them best, like www.wahlkabine.at
 helps people find the political party that fits their political standpoints
@@ -31,6 +32,8 @@ Manual
   - Click on the "Next"-Button
 - After having all questions answered: click on the dropdown-box to see more details about the displayed car
 
+Change Log
+- Version 1.0.0: initial project
 
 Test Report
 ...

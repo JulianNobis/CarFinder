@@ -1,8 +1,7 @@
 # CarFinder
-# <img src="https://github.com/leonkuchinka/CarFinder/blob/master/logo.png" width="50"/>
+<img src="https://github.com/leonkuchinka/CarFinder/blob/master/logo.png" width="50"/>
 
 ## Introduction
-
 This text introduces the implementation of a system which supports
 people at finding the car that suits them best, like www.wahlkabine.at
 helps people find the political party that fits their political standpoints
@@ -20,14 +19,12 @@ and US market. In the first step our primary focus lies on the Austrian
 market, and in further stages we could expand to other and maybe even
 the global market.
 
-##Feature list
-
+## Feature list
 - finds suiting cars for user inputs
 - display ads for suiting cars
 - answers can be analized to recognise trends
 
-##Manual
-
+## Manual
 - To start: Click start Button on the Home Page
 - For each question:
   - Depending on the question: choose one or more answers (instructions are displayed when hovering over the little information icon)
@@ -35,21 +32,17 @@ the global market.
   - Click on the "Next"-Button
 - After having all questions answered: click on the dropdown-box to see more details about the displayed car
 
-##Change Log
-
+## Change Log
 - Version 1.0.0: initial project
 
-##Test Report
-
+## Test Report
 ...
 
 
-##Test Results
-
+## Test Results
 ...
 
-##License
-
+## License
 please look [here](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
 
 For further information please have a look in the [project proposal](https://github.com/leonkuchinka/CarFinder/blob/master/ProjectProposalLSK.pdf) 

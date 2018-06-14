@@ -1,4 +1,4 @@
-# CarFinder <img src="https://github.com/leonkuchinka/CarFinder/blob/master/logo.png" width="200"/>
+# <img src="https://github.com/leonkuchinka/CarFinder/blob/master/logo.png" width="150"/>
 
 ## Introduction
 This text introduces the implementation of a system which supports

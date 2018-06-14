@@ -20,7 +20,7 @@ the global market.
 
 ## Feature list
 - finds suiting cars for user inputs
-- display ads for suiting cars
+- displays ads for suiting cars
 - answers can be analized to recognise trends
 
 ## Manual

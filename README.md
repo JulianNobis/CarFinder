@@ -20,11 +20,13 @@ market, and in further stages we could expand to other and maybe even
 the global market.
 
 Feature list
+
 - finds suiting cars for user inputs
 - display ads for suiting cars
 - answers can be analized to recognise trends
 
 Manual
+
 - To start: Click start Button on the Home Page
 - For each question:
   - Depending on the question: choose one or more answers (instructions are displayed when hovering over the little information icon)
@@ -33,16 +35,20 @@ Manual
 - After having all questions answered: click on the dropdown-box to see more details about the displayed car
 
 Change Log
+
 - Version 1.0.0: initial project
 
 Test Report
+
 ...
 
 
 Test Results
+
 ...
 
 License
+
 please look [here](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
 
 For further information please have a look in the [project proposal](https://github.com/leonkuchinka/CarFinder/blob/master/ProjectProposalLSK.pdf) 

@@ -42,6 +42,8 @@ Test Report
 Test Results
 ...
 
+License
+please look [here](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
 
 For further information please have a look in the [project proposal](https://github.com/leonkuchinka/CarFinder/blob/master/ProjectProposalLSK.pdf) 
-and the system specification
+and the [system specification](https://github.com/leonkuchinka/CarFinder/blob/master/SystemSpecificationLSK.pdf)

@@ -42,7 +42,7 @@ the global market.
 ...
 
 ## License
-please look [here](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
+[LICENSE](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
 
 ## Other
 For further information please have a look in the [project proposal](https://github.com/leonkuchinka/CarFinder/blob/master/ProjectProposalLSK.pdf) 

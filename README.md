@@ -43,4 +43,5 @@ Test Results
 ...
 
 
-For further information please have a look in the project proposal and the system specification
+For further information please have a look in the [project proposal](https://github.com/leonkuchinka/CarFinder/blob/master/ProjectProposalLSK.pdf) 
+and the system specification

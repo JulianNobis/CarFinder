@@ -23,6 +23,11 @@ the global market.
 - displays ads for suiting cars
 - answers can be analized to recognise trends
 
+## Developers
+- Leon Kuchinka
+- Lukas Stransky
+- Leon Schlömmer
+
 ## Manual
 - To start: Click start Button on the Home Page
 - For each question:
@@ -35,7 +40,7 @@ the global market.
 - Version 1.0.0: initial project
 
 ## Source Code
-We provided the source code in the [Source Code/CarFinder](https://github.com/leonkuchinka/CarFinder/tree/master/Source%20Code/CarFinder) of our repository. All rights and legal information can be found in the [license](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
+We provided the source code in the [Source Code/CarFinder](https://github.com/leonkuchinka/CarFinder/tree/master/Source%20Code/CarFinder) of our repository. All rights and legal information can be found in the [license](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE).
 
 ## System Requirements
 As long as our website is not online, to use it, you have to be able to compile c# code.
@@ -50,4 +55,4 @@ As long as our website is not online, to use it, you have to be able to compile 
 - not all requirements can be covered at the moment due to a lack in diversity of cars in our database
 
 ## Other
-For further information please have a look in the [Documents Folder](https://github.com/leonkuchinka/CarFinder/tree/master/Documents)
+For further information please have a look in the [Documents Folder](https://github.com/leonkuchinka/CarFinder/tree/master/Documents).

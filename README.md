@@ -34,7 +34,8 @@ the global market.
 ## Change Log
 - Version 1.0.0: initial project
 
-## [Source Code](https://github.com/leonkuchinka/CarFinder/tree/master/Source%20Code/CarFinder)
+## Source Code
+We provided the source code in the [Source Code/CarFinder](https://github.com/leonkuchinka/CarFinder/tree/master/Source%20Code/CarFinder) of our repository. All rights and legal information can be found in the [license](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
 
 ## System Requirements
 As long as our website is not online, to use it, you have to be able to compile c# code.

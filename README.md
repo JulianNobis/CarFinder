@@ -34,16 +34,12 @@ the global market.
 ## Change Log
 - Version 1.0.0: initial project
 
-## Test Report
-...
-
-
-## Test Results
-...
+## Test Documents
+[Test Documents](https://github.com/leonkuchinka/CarFinder/tree/master/Test%20Documents)
 
 ## License
 [LICENSE](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
 
 ## Other
-For further information please have a look in the [project proposal](https://github.com/leonkuchinka/CarFinder/blob/master/ProjectProposalLSK.pdf) 
-and the [system specification](https://github.com/leonkuchinka/CarFinder/blob/master/SystemSpecificationLSK.pdf)
+For further information please have a look in the [project proposal](https://github.com/leonkuchinka/CarFinder/blob/master/Introduction/ProjectProposalLSK.pdf) 
+and the [system specification](https://github.com/leonkuchinka/CarFinder/blob/master/Introduction/SystemSpecificationLSK.pdf)

@@ -43,5 +43,8 @@ As long as our website is not online, to use it, you have to be able to compile 
 ## License
 [LICENSE](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
 
+## Open Known Issues
+- not all requirements can be covered at the moment due to a lack in diversity of cars in our database
+
 ## Other
 For further information please have a look in the [Documents Folder](https://github.com/leonkuchinka/CarFinder/tree/master/Documents)

@@ -44,5 +44,4 @@ As long as our website is not online, to use it, you have to be able to compile 
 [LICENSE](https://github.com/leonkuchinka/CarFinder/blob/master/LICENSE)
 
 ## Other
-For further information please have a look in the [project proposal](https://github.com/leonkuchinka/CarFinder/blob/master/Introduction/ProjectProposalLSK.pdf) 
-and the [system specification](https://github.com/leonkuchinka/CarFinder/blob/master/Introduction/SystemSpecificationLSK.pdf)
+For further information please have a look in the [Documents Folder](https://github.com/leonkuchinka/CarFinder/tree/master/Documents)

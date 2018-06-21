@@ -1,0 +1,71 @@
+#modalWindow
+{
+  display:none;
+  position:fixed;
+  top:0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+#modalWindow:hover,
+#modalWindow:focus {
+    cursor: pointer;
+}
+
+#modalWindow img
+{
+  align-self: center;
+
+}
+
+.portfolio-thumb .img-responsive
+{
+  height: 200px;
+  width: auto;
+}
+
+#modalWindow img:hover {opacity: 0.7;}
+
+/* Add Animation */
+#modalWindow {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+
+#gotoTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#gotoTopBtn:hover {
+  background-color: #555;
+}

@@ -1,0 +1,171 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="prototype.Site1" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="has-navbar-fixed-top" style="padding:0px">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+    <title><%: Page.Title %></title>
+    <link rel="icon" href="images/icon.png"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+    
+
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="css/animate.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/carFinder-styles.css" />
+    <link rel="stylesheet" href="css/progressbar.css" />
+    <link rel="stylesheet" href="css/infoicon.css" />
+
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script>
+            function navigateToHome()
+            {
+                window.location.assign("Home.html");
+            }
+    </script>
+
+    <style>
+        
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:contentplaceholder id="MainContent" runat="server" >
+            </asp:contentplaceholder>
+        </div>
+    </form>
+    <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+                <script language="javascript" type="text/javascript">
+                var xmlHttp;
+
+
+                function ExecuteCall(url) {
+                    try {alert('hey');
+                        xmlHttp = GetXmlHttpObject(CallbackMethod);
+                        SendXmlHttpRequest(xmlHttp, url);
+                    }
+                    catch (e) { }
+                }
+
+
+                function CallbackMethod() {
+                    try {
+                        if (xmlHttp.readyState == 4 ||
+                            xmlHttp.readyState == 'complete') {
+                            var response = xmlHttp.responseText;
+                            if (response.length > 0) {
+                                //update page -- no need to do while closing the browser
+                                //alert(response)
+                            }
+                        }
+                    }
+                    catch (e) { }
+                }
+
+
+            function SendXmlHttpRequest(xmlhttp, url) {
+                xmlhttp.open('GET', url, false);
+                xmlhttp.send(null);
+            }
+ 
+
+            function GetXmlHttpObject(handler) {
+                var objXmlHttp = null;
+                if (!window.XMLHttpRequest) {
+                    // Microsoft
+                    objXmlHttp = GetMSXmlHttp();
+                    if (objXmlHttp != null) {
+                        objXmlHttp.onreadystatechange = handler;
+                    }
+                }
+                else {
+                    // Mozilla | Netscape | Safari
+                    objXmlHttp = new XMLHttpRequest();
+                    if (objXmlHttp != null) {
+                        objXmlHttp.onload = handler;
+                        objXmlHttp.onerror = handler;
+                    }
+                }
+                return objXmlHttp;
+            }
+
+
+            function GetMSXmlHttp() {
+                var xmlHttp = null;
+                var clsids = ["Msxml2.XMLHTTP.6.0",
+                          "Msxml2.XMLHTTP.4.0",
+                          "Msxml2.XMLHTTP.3.0"];
+                for (var i = 0; i < clsids.length && xmlHttp == null; i++) {
+                    xmlHttp = CreateXmlHttp(clsids[i]);
+                }
+                return xmlHttp;
+            }
+
+
+            function CreateXmlHttp(clsid) {
+                var xmlHttp = null;
+                try {
+                    xmlHttp = new ActiveXObject(clsid);
+                    lastclsid = clsid;
+                    return xmlHttp;
+                }
+                catch (e) { }
+            }
+        window.onbeforeunload = confirmExit;
+        function confirmExit() {
+            return "";
+        }
+        window.onunload = myUnload;
+        function myUnload()
+        {
+            ExecuteCall("ClearSession.aspx");
+        }
+        function myAlert() {
+            alertify.error("         Bitte beantworte alle Fragen!            ");
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            if ($navbarBurgers.length > 0) {
+
+                $navbarBurgers.forEach(function ($el) {
+                    $el.addEventListener('click', function () {
+
+                        var target = $el.dataset.target;
+                        var $target = document.getElementById(target);
+
+                        $el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                        $target.classList.add('color');
+
+                    });
+                });
+            }
+
+        });
+        for (var i = 0; i < document.links.length; i++) {
+            if (document.links[i].href == document.url) {
+                document.links[i].className = 'active';
+            }
+        }
+    </script>
+</body>
+</html>
+

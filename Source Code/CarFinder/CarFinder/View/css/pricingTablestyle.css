@@ -1,0 +1,175 @@
+#container_priceTable a{
+	font-size: 18px;
+	font-family:'Open Sans';
+    color: white;
+    text-decoration: none;
+
+}
+
+#container_priceTable input:focus,textarea:focus,select:focus{
+  border:1px solid #fafafa;
+  -webkit-box-shadow:0 0 6px #007eff;
+  -moz-box-shadow:0 0 5px #007eff;
+  box-shadow:0 0 5px #007eff;
+  outline: none;
+}
+
+#container_priceTable sup{
+
+	font-size: 40px;
+}
+
+#container_priceTable ul{
+	list-style: none;
+	font-size: 15px;
+	font-family:'Open Sans';
+	color: #9095aa;
+	padding: 0px;
+	margin: 0px;
+
+
+}
+
+
+#container_priceTable li{
+border-bottom: 1px solid #494a5a;
+padding: 0px;
+margin: 0px;
+text-align: center;
+height: 52px;
+line-height: 52px;
+}
+
+
+#container_priceTable{
+	width: 100%;
+  text-align:center;
+}
+
+#container_priceTable .whole{
+	display: inline-block;
+
+}
+
+
+
+#container_priceTable .type{
+	width: 300px;
+	border-radius: 5px 5px 0px 0px;
+	background-color: #eac80d;
+	height: 62px;
+	border-bottom: 3px solid #bfa30c;
+
+}
+
+#container_priceTable .type p{
+	font-family:'Open Sans';
+    font-weight: 800;
+	font-size: 29px;
+	text-transform: uppercase;
+	color: white;
+	text-align: center;
+	padding-top: 10px;
+
+
+
+}
+
+#container_priceTable .plan{
+	width: 300px;
+	background-color: #2b2937;
+
+	border-radius: 0px 0px 5px 5px;
+    font-family:'Open Sans';
+    font-style:condensed;
+    font-size: 90px;
+    color: white;
+    text-align: center;
+
+
+}
+
+#container_priceTable .free{
+	background-color: #ff944d;
+	border-bottom: 3px solid #ff6600;
+}
+
+#container_priceTable .business{
+	background-color: #8080ff;
+	border-bottom: 3px solid #3333ff;
+}
+
+#container_priceTable .donate{
+	background-color: #8cd98c;
+	border-bottom: 3px solid #18937b;
+}
+
+
+
+
+
+#container_priceTable .header{
+	border-bottom: 1px solid #494a5a;
+	padding-bottom: 39px;
+
+
+}
+
+#container_priceTable .header span{
+	font-size: 32px;
+
+
+}
+
+#container_priceTable .month{
+	font-size: 14px;
+	color: #575757;
+	padding: 0px;
+	margin: -10px;
+}
+
+#container_priceTable .price{
+	height:80px;
+}
+
+#container_priceTable .cart{
+
+  color:white;
+  position: relative;
+  top: 16px;
+
+}
+
+#container_priceTable .top{
+  margin-top:35px;
+}
+
+#container_priceTable .nodisplay{
+  opacity: 0.1;
+}
+
+#container_priceTable .selected{
+  background-color:#1F1B36;
+  margin:0px;
+  padding:0px;
+}
+#container_priceTable span.on_sale{
+font-size: 13px;
+color: #ffffff;
+background: #15846e;
+text-transform: uppercase;
+border-radius: 30px 30px 0px 0px;
+width: 75px;
+text-align: center;
+display: block;
+position: absolute;
+top: 7px;
+right: -15px;
+-moz-transition: all 0.5s ease;
+-webkit-transition: all 0.5s ease;
+transition: all 0.5s ease;
+-webkit-transform: rotate(-44deg);
+-ms-transform: rotate(-44deg);
+transform: rotate(40deg);
+box-shadow: 3px -4px 13px 3px rgba(0,0,0,0.75);
+}

@@ -1,0 +1,13 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Oops.aspx.cs" MasterPageFile="~/View/Site.Master" Inherits="prototype.ErrorPages.Oops" %>
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">  
+        <div>
+            <h1>Oops! An Error has occured.</h1>
+            <p>Things to do: Go back to the home page.</p>
+            <asp:HyperLink ID="hyperlink1"
+                NavigateUrl="~/View/CarFinder.aspx"
+                Text="Return to home"
+                runat="server" />
+        </div>
+</asp:Content>
+

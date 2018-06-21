@@ -1,0 +1,544 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Drawing;
+using System.Text;
+using System.Data;
+using prototype.Model;
+
+namespace prototype
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        private const string FILEPATH = "~/images/";
+        private const string IgnoreImportance = "ignoreImportance";
+
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                if (Session["answers"] == null)
+                    Session["answers"] = new Dictionary<int, Answer>();
+                Session["answeredQuestion"] = false;
+                Session["gaveImportanceFactor"] = false;
+                Session["allMarkedButtons"] = new List<String>();
+            }
+            if (Session["ActiveViewIndex"] != null)
+                MultiView1.ActiveViewIndex = (int)Session["ActiveViewIndex"];
+            if (Session["Placeholder"] != null)
+                PlaceHolder1.Controls.Add((PlaceHolder)Session["Placeholder"]);
+
+
+        }
+
+
+
+        /// <summary>
+        /// ButtonHandler for the Finish-Button:
+        /// Finds the perfect car, shows car on the website
+        /// and stores the searchquery
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void GetData_Click(object sender, EventArgs e)
+        {
+            ResetAllButtons();
+            List<Car> allCars = Repository.GetInstance().ReadAllCarsFromDB();
+            Car fittingCar = Repository.GetInstance().FindCar(allCars, (Dictionary<int, Answer>)Session["answers"]);
+            Session["fittingCar"] = fittingCar;
+            AddCarDisplayment("fittingCar");
+            MultiView1.ActiveViewIndex++;
+            Session["ActiveViewIndex"] = MultiView1.ActiveViewIndex;
+            Repository.GetInstance().StoreSearchQuery((Dictionary<int, Answer>)Session["answers"]);
+        }
+
+
+
+
+        /// <summary>
+        /// AnswerButton Handler for every question which can be answered with exactly one answers
+        /// </summary>
+        /// <param name="sender">Button which got pressed</param>
+        /// <param name="e"></param>
+        protected void AnswerButtons_1_String(object sender, EventArgs e)
+        {
+            throw new Exception("Something bad happened");
+            List<String> allMarkedButtons = (List<String>)Session["allMarkedButtons"];
+            if (Session["_currentButton"] != null)
+            {
+                Button current = (Button)PlaceHolder1.FindControl(Session["_currentButton"].ToString());
+                current.CssClass = "answer";
+                allMarkedButtons.Remove(current.ID);
+                Session["allMarkedButtons"] = allMarkedButtons;
+            }
+            Button btn = (Button)sender;
+            Session["answeredQuestion"] = true;
+
+            Session["tempAnswer"] = btn.Text;
+
+            btn.CssClass = "answerClicked";
+            Session["_currentButton"] = btn.ID;
+            allMarkedButtons.Add(btn.ID);
+            Session["allMarkedButtons"] = allMarkedButtons;
+
+        }
+
+        /// <summary>
+        /// AnswerButton Handler for every question which can be answered with more answers
+        /// </summary>
+        /// <param name="sender">Button which got pressed</param>
+        /// <param name="e"></param>
+
+    }
+
+    private void Page_Error(object sender, EventArgs e)
+    {
+        Exception exc = Server.GetLastError();
+
+
+        Server.Transfer("~/ErrorPages/Oops.aspx");
+
+
+        Server.ClearError();
+    }
+
+
+    protected void AnswerButtons_List_String(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        List<string> currentList = (List<string>)Session["tempAnswer"];
+        List<String> allMarkedButtons = (List<String>)Session["allMarkedButtons"];
+        if (currentList == null || !currentList.Contains(btn.Text))
+        {
+            Session["answeredQuestion"] = true;
+            if (currentList == null)
+                currentList = new List<string>();
+            currentList.Add(btn.Text);
+            Session["tempAnswer"] = currentList;
+            btn.CssClass = "answerClicked";
+            allMarkedButtons.Add(btn.ID);
+            Session["allMarkedButtons"] = allMarkedButtons;
+        }
+        else if (currentList.Contains(btn.Text))
+        {
+            currentList.Remove(btn.Text);
+            if (currentList.Count == 0)
+            {
+                currentList = null;
+                Session["answeredQuestion"] = false;
+            }
+            Session["tempAnswer"] = currentList;
+            btn.CssClass = "answer";
+            allMarkedButtons.Remove(btn.ID);
+            Session["allMarkedButtons"] = allMarkedButtons;
+        }
+    }
+
+    /// <summary>
+    /// AnswerButton Handler for CylinderCount-Question
+    /// </summary>
+    /// <param name="sender">Button which got pressed</param>
+    /// <param name="e"></param>
+    protected void AnswerButtons_List_String_CC(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        string arg = btn.CommandArgument;
+        List<string> currentList = (List<string>)Session["tempAnswer"];
+        List<string> allMarkedButtons = (List<string>)Session["allMarkedButtons"];
+        if (currentList == null || !currentList.Contains(btn.Text))
+        {
+            Session["answeredQuestion"] = true;
+            if (currentList == null || arg == btn.Text || currentList.Contains(arg))
+            {
+                ReleaseAllAnswerButtons(allMarkedButtons);
+                allMarkedButtons = (List<string>)Session["allMarkedButtons"];
+                currentList = new List<string>();
+            }
+            currentList.Add(btn.Text);
+            Session["tempAnswer"] = currentList;
+            btn.CssClass = "answerClicked";
+            allMarkedButtons.Add(btn.ID);
+            Session["allMarkedButtons"] = allMarkedButtons;
+        }
+        else if (currentList.Contains(btn.Text))
+        {
+            currentList.Remove(btn.Text);
+            if (currentList.Count == 0)
+            {
+                currentList = null;
+                Session["answeredQuestion"] = false;
+            }
+            Session["tempAnswer"] = currentList;
+            btn.CssClass = "answer";
+            allMarkedButtons.Remove(btn.ID);
+            Session["allMarkedButtons"] = allMarkedButtons;
+        }
+    }
+
+    /// <summary>
+    /// AnswerButton Handler for PS-Question
+    /// </summary>
+    /// <param name="sender">Button which got pressed</param>
+    /// <param name="e"></param>
+    protected void AnswerButtons_List_String_PS(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        List<string> currentList = (List<string>)Session["tempAnswer"];
+        List<String> allMarkedButtons = (List<String>)Session["allMarkedButtons"];
+        if (currentList == null || !currentList.Contains(btn.Text))
+        {
+            Session["answeredQuestion"] = true;
+            if (currentList == null)
+                currentList = new List<string>();
+            int bntID = Int32.Parse(btn.ID.Split('_')[3]);
+            if (allMarkedButtons != null && (allMarkedButtons.Contains("btn_ans_ps_" + (bntID + 1).ToString()) || allMarkedButtons.Contains("btn_ans_ps_" + (bntID - 1).ToString())))
+            {
+                currentList.Add(btn.Text);
+                Session["tempAnswer"] = currentList;
+                btn.CssClass = "answerClicked";
+                allMarkedButtons.Add(btn.ID);
+                Session["allMarkedButtons"] = allMarkedButtons;
+            }
+            else
+            {
+                if (currentList.Count != 0)
+                {
+                    ReleaseAllAnswerButtons(allMarkedButtons);
+                    currentList = new List<string>();
+                }
+                currentList.Add(btn.Text);
+                Session["tempAnswer"] = currentList;
+                btn.CssClass = "answerClicked";
+                allMarkedButtons = (List<String>)Session["allMarkedButtons"];
+                allMarkedButtons.Add(btn.ID);
+                Session["allMarkedButtons"] = allMarkedButtons;
+            }
+
+        }
+        else if (currentList.Contains(btn.Text))
+        {
+            int bntID = Int32.Parse(btn.ID.Split('_')[3]);
+            if (allMarkedButtons != null && allMarkedButtons.Contains("btn_ans_ps_" + (bntID + 1).ToString()) && allMarkedButtons.Contains("btn_ans_ps_" + (bntID - 1).ToString()))
+            {
+                ReleaseAllAnswerButtons(allMarkedButtons);
+                allMarkedButtons = (List<String>)Session["allMarkedButtons"];
+                currentList = null;
+                Session["answeredQuestion"] = false;
+            }
+            else
+            {
+                currentList.Remove(btn.Text);
+                if (currentList.Count == 0)
+                {
+                    currentList = null;
+                    Session["answeredQuestion"] = false;
+                }
+                allMarkedButtons.Remove(btn.ID);
+                Session["allMarkedButtons"] = allMarkedButtons;
+            }
+            Session["tempAnswer"] = currentList;
+            btn.CssClass = "answer";
+
+        }
+    }
+
+    /// <summary>
+    /// Releases all answer Buttons
+    /// </summary>
+    /// <param name="allMarkedButtons"></param>
+    private void ReleaseAllAnswerButtons(List<string> allMarkedButtons)
+    {
+        List<string> newList = new List<string>();
+        foreach (string s in allMarkedButtons)
+        {
+            if (!s.Contains("imp"))
+            {
+
+                Button temp = (Button)this.Master.FindControl("MainContent").FindControl(s);
+                temp.CssClass = "button answer is-fullwidth";
+            }
+            else
+            {
+                newList.Add(s);
+            }
+        }
+        Session["allMarkedButtons"] = newList;
+    }
+
+
+
+    /// <summary>
+    /// Button Handler for all Importance Buttons
+    /// </summary>
+    /// <param name="sender">Button which got pressed</param>
+    /// <param name="e"></param>
+    protected void ImportanceClick(object sender, EventArgs e)
+    {
+        if (Session["_currentImportance"] != null)
+        {
+            Button current = (Button)PlaceHolder1.FindControl(Session["_currentImportance"].ToString());
+            current.CssClass = "importance";
+        }
+        Button btn = (Button)sender;
+        int curImportance = Int32.Parse(btn.Text);
+        Session["gaveImportanceFactor"] = true;
+
+        Session["tempImportancy"] = curImportance;
+
+        btn.CssClass = "importanceClicked";
+        Session["_currentImportance"] = btn.ID;
+    }
+
+
+    /// <summary>
+    /// Button Handler for the Next-Button
+    /// Checks if answers are already given, stores them and 
+    /// redirects to the next question 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void next_Click(object sender, EventArgs e)
+    {
+        string arg = ((Button)sender).CommandArgument;
+
+        if (arg != IgnoreImportance && (Session["answeredQuestion"] == null || Session["gaveImportanceFactor"] == null || !((bool)Session["answeredQuestion"]) || !((bool)Session["gaveImportanceFactor"])))
+        {
+            return;
+        }
+
+        else if (Session["answeredQuestion"] == null || !((bool)Session["answeredQuestion"]))
+        {
+            return;
+        }
+        else
+        {
+            Dictionary<int, Answer> answers = (Dictionary<int, Answer>)Session["answers"];
+
+            if (answers.ContainsKey(MultiView1.ActiveViewIndex))
+            {
+                answers.Remove(MultiView1.ActiveViewIndex);
+            }
+            int importance = 0;
+            if (arg != IgnoreImportance)
+            {
+                importance = (int)Session["tempImportancy"];
+            }
+
+            if (Session["tempAnswer"] is string)
+            {
+                answers.Add(MultiView1.ActiveViewIndex, new Answer_1_String(Session["tempAnswer"].ToString(), importance));
+            }
+            else if (Session["tempAnswer"] is List<string>)
+            {
+                answers.Add(MultiView1.ActiveViewIndex, new Answer_List_String((List<string>)Session["tempAnswer"], importance));
+            }
+            Session["answers"] = answers;
+        }
+        if (arg.StartsWith("SkipIf"))
+        {
+            string[] elements = arg.Split(';');
+            if (Session["tempAnswer"] is string)
+            {
+                if (elements[1] == Session["tempAnswer"].ToString())
+                {
+                    MultiView1.ActiveViewIndex++;
+                }
+            }
+            else if (Session["tempAnswer"] is List<string>)
+            {
+                List<string> temp = (List<string>)Session["tempAnswer"];
+                if (temp != null && temp.Count == 1 && temp.Contains(elements[1]))
+                {
+                    MultiView1.ActiveViewIndex++;
+                }
+            }
+        }
+        Session["tempAnswer"] = null;
+        Session["tempImportancy"] = 0;
+
+        Session["answeredQuestion"] = false;
+        Session["gaveImportanceFactor"] = false;
+
+        MultiView1.ActiveViewIndex++;
+        Session["ActiveViewIndex"] = MultiView1.ActiveViewIndex;
+        Session["_currentButton"] = null;
+        ResetAllButtons();
+    }
+
+
+    /// <summary>
+    /// Help-function; Sets CssClass of all Buttons to the default class
+    /// </summary>
+    private void ResetAllButtons()
+    {
+        if (Session["_currentImportance"] != null)
+        {
+            Button current = (Button)PlaceHolder1.FindControl(Session["_currentImportance"].ToString());
+            current.CssClass = "btnImportance";
+        }
+        List<String> allMarkedButtons = (List<String>)Session["allMarkedButtons"];
+        foreach (string s in allMarkedButtons)
+        {
+            Button temp = (Button)PlaceHolder1.FindControl(s);
+            temp.CssClass = "btnAnswer";
+        }
+        Session["allMarkedButtons"] = new List<String>();
+    }
+
+    /// <summary>
+    /// Redirects user to the first question
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void Start_Click(object sender, EventArgs e)
+    {
+        MultiView1.ActiveViewIndex++;
+        Session["ActiveViewIndex"] = MultiView1.ActiveViewIndex;
+    }
+
+    /// <summary>
+    /// Clears the Session and redirects to the start if the user wants to start again
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void Home_Click(object sender, EventArgs e)
+    {
+        Session.Contents.RemoveAll();
+        ResetSession();
+    }
+
+    /// <summary>
+    /// Resets all Session-Variables to the default value
+    /// </summary>
+    private void ResetSession()
+    {
+        Session["answers"] = new Dictionary<int, Answer>();
+        Session["answeredQuestion"] = false;
+        Session["gaveImportanceFactor"] = false;
+        MultiView1.ActiveViewIndex = 0;
+        Session["ActiveViewIndex"] = MultiView1.ActiveViewIndex;
+        Session["allMarkedButtons"] = new List<String>();
+    }
+
+
+    /// <summary>
+    /// Prepares car-displayment for the page and adds it to the placeholder
+    /// </summary>
+    /// <param name="sessionID"></param>
+    protected void AddCarDisplayment(string sessionID)
+    {
+        Car car = (Car)Session[sessionID];
+        System.Web.UI.WebControls.Image carImage = new System.Web.UI.WebControls.Image();
+        carImage.ImageUrl = FILEPATH + car.ImagePath;
+        carImage.CssClass = "cover";
+
+        Label carNameLabel = new Label();
+        carNameLabel.Text = car.Make.ToString() + " " + car.Model.ToString();
+
+        Label carHpLabel = new Label();
+        carHpLabel.Text = car.HorsePower.ToString();
+
+        Label carPriceLabel = new Label();
+        carPriceLabel.Text = car.Price.ToString();
+
+
+        Table table = new Table();
+        TableRow row = new TableRow();
+
+        /*ImageCell */
+        TableCell imageCell = new TableCell();
+        imageCell.Controls.Add(carImage);
+        row.Cells.Add(imageCell);
+        /*Imagecell */
+
+        /*DataCell */
+        TableCell dataCell = new TableCell();
+        Table dataTable = new Table();
+        TableRow nameRow = new TableRow();
+        TableCell nameCell = new TableCell();
+        nameCell.Controls.Add(carNameLabel);
+        nameRow.Cells.Add(nameCell);
+        TableRow hpRow = new TableRow();
+        TableCell hpCell = new TableCell();
+        hpCell.Controls.Add(carHpLabel);
+        hpRow.Cells.Add(hpCell);
+        TableRow priceRow = new TableRow();
+        TableCell priceCell = new TableCell();
+
+        dataTable.Rows.Add(nameRow);
+        dataTable.Rows.Add(hpRow);
+        dataTable.Rows.Add(priceRow);
+
+        priceCell.Controls.Add(carPriceLabel);
+        priceRow.Cells.Add(priceCell);
+
+        dataCell.Controls.Add(dataTable);
+        row.Cells.Add(dataCell);
+        /* DataCell*/
+
+        /* AdCell */
+        Advertisement randomAd = Repository.GetInstance().getRandomAdvertisement(car.Id);
+        if (randomAd != null)
+        {
+            Label advertiserLabel = new Label();
+            advertiserLabel.Text = randomAd.CarDealer;
+
+            Label adPriceLabel = new Label();
+            adPriceLabel.Text = randomAd.Price.ToString();
+
+            string link = randomAd.Link;
+
+            TableCell adCell = new TableCell();
+
+            Table adTable = new Table();
+            TableRow advertiserRow = new TableRow();
+            TableCell advertiserCell = new TableCell();
+            advertiserCell.Controls.Add(advertiserLabel);
+            advertiserRow.Cells.Add(advertiserCell);
+            adTable.Rows.Add(advertiserRow);
+
+            TableRow adpriceRow = new TableRow();
+            TableCell adpriceCell = new TableCell();
+            adpriceCell.Controls.Add(adPriceLabel);
+            adpriceRow.Cells.Add(adpriceCell);
+            adTable.Rows.Add(adpriceRow);
+
+            TableRow linkRow = new TableRow();
+            TableCell linkCell = new TableCell();
+            HyperLink linkControl = new HyperLink();
+            linkControl.NavigateUrl = link;
+            linkControl.Text = "Buy now!";
+            linkControl.Target = "_blank";
+            linkCell.Controls.Add(linkControl);
+            linkRow.Cells.Add(linkCell);
+            adTable.Rows.Add(linkRow);
+
+            adCell.Controls.Add(adTable);
+
+            row.Cells.Add(adCell);
+        }
+
+
+
+        /* AdCell */
+
+
+
+
+        table.Controls.Add(row);
+
+
+        PlaceHolder1.Controls.Add(table);
+        Session["Placeholder"] = PlaceHolder1;
+    }
+
+
+    
+}

@@ -1,4 +1,4 @@
-# Test-file Readme
+# Test Documents
 Here you can find all the information of the testing-procedure of our project.
 
 ### [Test specification](https://github.com/leonkuchinka/CarFinder/blob/master/Test%20Documents/Test%20Specification.pdf)

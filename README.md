@@ -34,6 +34,9 @@ the global market.
 ## Change Log
 - Version 1.0.0: initial project
 
+## System Requirements
+As long as our website is not online, to use it, you have to be able to compile c# code.
+
 ## Test Documents
 [Test Documents](https://github.com/leonkuchinka/CarFinder/tree/master/Test%20Documents)
 
